@@ -23,14 +23,55 @@ public class TesteServicoProduto {
 
     @Test
     public void testeCadastroProduto(){
-        Pessoa pessoa = new Pessoa();
-        pessoa.setIdPessoa(1);
-        pessoa.setNome("Ageu");
-        pessoa.setCpf("11111111111111");
+         Produto produto = new Produto();
+        produto.setIdProduto(1);
+        produto.setNome("Garrafa");
+        produto.setPreco(25);
 
-        Assert.assertEquals(1, ServicoPessoa.validarPessoa(pessoa));
+        Assertions.assertEquals(1, ServicoProduto.validarProduto(produto));
 
-        Assert.assertEquals(1, ServicoPessoa.cadastrarPessoa(pessoa));
+        Assertions.assertEquals(1, ServicoProduto.cadastrarProduto(produto));
+    }
+
+    @Test
+    public void testeEditarPessoa(){
+        Produto produto = new Produto();
+        produto.setIdProduto(1);
+        produto.setNome("Garrafa");
+        produto.setPreco(20);
+        if(ServicoProduto.validarProduto(produto) == 1){
+            if(ServicoProduto.cadastrarProduto(produto) == 1){
+                produto.setIdProduto(1);
+                produto.setNome("Garrafa");
+                produto.setPreco(10);
+                produto.setQuantidade(10);
+                produto.setCategoria("A");
+                Assertions.assertTrue(ServicoProduto.editarProduto(produto));
+            }
+        }
+    }
+
+    @Test
+    public void testeExcluirProduto(){
+        Produto produto = new Produto();
+        produto.setIdProduto(1);
+        produto.setNome("Garrafa");
+        produto.setPreco(15);
+        ServicoProduto.cadastrarProduto(produto);
+
+        Assertions.assertTrue(ServicoProduto.excluirProduto(1));
+        Assertions.assertEquals(0, ServicoProduto.getListaProduto().size());
+    }
+
+    @Test
+    public void testeConsultarPessoa(){
+        Produto produto =  new Produto();
+        produto.setIdProduto(1);
+        produto.setNome("Garrafa");
+        produto.setPreco(30);
+        ServicoProduto.cadastrarProduto(produto);
+
+        Assertions.assertEquals("Garrafa", ServicoProduto.consultarProduto(1).getNome());
     }
 
 
